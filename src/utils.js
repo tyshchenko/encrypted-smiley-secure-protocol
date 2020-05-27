@@ -87,7 +87,7 @@ function argsToByte(command, args, protocol_version){
 		
 		else if(command == 'GET_DENOMINATION_ROUTE'){
 			if(protocol_version >= 6){
-				return [...int32LE(args.value)].concat([...Buffer.from(args.country_code, 'ascii')]);
+				return [...int32LE(args.value)];
 			} else {
 				return [...args.isHopper ? int16LE(args.value) : int32LE(args.value)]
 			}
