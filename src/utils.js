@@ -58,7 +58,7 @@ function argsToByte(command, args, protocol_version){
 	if(args != undefined){
 		if(command == 'SET_DENOMINATION_ROUTE'){
 			if(protocol_version >= 6){
-				return [args.route == 'payout' ? 0 : 1].concat([...int32LE(args.value)], [...Buffer.from(args.country_code, 'ascii')]);
+				return [args.route == 'payout' ? 0 : 1].concat([...int32LE(args.value)]);
 			} else {
 				return [args.route == 'payout' ? 0 : 1].concat([...args.isHopper ? int16LE(args.value) : int32LE(args.value)])
 			}
