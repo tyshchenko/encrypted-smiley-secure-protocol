@@ -124,7 +124,10 @@ module.exports = class SSP extends events {
 		this.keys.modulusKey = randomPrime(this.keys.generatorKey);
 		this.keys.hostRandom = randomPrime(this.keys.modulusKey);
 		this.keys.hostIntKey = bigInt(this.keys.generatorKey).pow(this.keys.hostRandom).mod(this.keys.modulusKey);
-		
+    
+		if(this.debug)
+			console.log('COM <-', chalk.cyan('generatorKey modulusKey'), chalk.green(this.keys.generatorKey), this.keys.modulusKey)
+
 		return this.exec('SET_GENERATOR', Int64LE(this.keys.generatorKey).buffer)
 		.then(() => this.exec('SET_MODULUS', Int64LE(this.keys.modulusKey).buffer))
 		.then(() => this.exec('REQUEST_KEY_EXCHANGE', Int64LE(this.keys.hostIntKey).buffer))
