@@ -599,6 +599,7 @@ function parseData(data, currentCommand, protocol_version) {
 			)) {
 			
 			result.info.errorCode = data[1];
+      console.log(data)
 			switch(data[1]){
 				case 1: result.info.error = 'No payout connected'; break;
 				case 2: result.info.error = 'Invalid currency detected'; break;
