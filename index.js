@@ -120,8 +120,8 @@ module.exports = class SSP extends events {
 	}
 
 	initEncryption(){
-		this.keys.generatorKey = randomPrime(100000);
-		this.keys.modulusKey = randomPrime(this.keys.generatorKey);
+		this.keys.generatorKey = 53453;
+		this.keys.modulusKey = 28349;
 		this.keys.hostRandom = randomPrime(this.keys.modulusKey);
 		this.keys.hostIntKey = bigInt(this.keys.generatorKey).pow(this.keys.hostRandom).mod(this.keys.modulusKey);
     
