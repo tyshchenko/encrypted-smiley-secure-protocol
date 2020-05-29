@@ -201,7 +201,7 @@ module.exports = {
 	},
 	SET_DENOMINATION_LEVEL: {
 		code: 52,
-		encrypted: false,
+		encrypted: true,
 		args: true,
 		device: ['SMART Hopper'],
 		description: 'A command to increment the level of coins of a denomination stored in the hopper. The command is formatted with the command byte first, amount of coins to add as a 2-byte little endian, the value of coin as 2-byte little endian and (if using protocol version 6) the country code of the coin as 3 byte ASCII. The level of coins for a denomination can be set to zero by sending a zero level for that value. Note that protocol 6 version commands have been expanded to use a 4-byte coin value. The command data is formatted as byte 0 and byte 1 give the number of coins to add. In protocol version 5, the denomination is then sent as a two byte value. In protocol version greater than 5, the denomination is sent as 4 byte value plus 3 bytes ascii country code. In this example we want to increase the level of .50c coin by 20 using protocol version 5.'
@@ -230,7 +230,7 @@ module.exports = {
 	},
 	SET_DENOMINATION_ROUTE: {
 		code: 59,
-		encrypted: false,
+		encrypted: true,
 		args: true,
 		device: ['SMART Hopper', 'SMART Payout', 'NV11'],
 		description: 'This command will configure the denomination to be either routed to the cashbox on detection or stored to be made available for later possible payout.',
