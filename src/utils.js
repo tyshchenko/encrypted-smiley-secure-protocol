@@ -237,6 +237,7 @@ function argsToByte(command, args, protocol_version){
 }
 
 function parseData(data, currentCommand, protocol_version) {
+  console.log(data)
 	let result = {
 		success: data[0] == 0xF0,
 		status: status_desc[data[0]] != undefined ? status_desc[data[0]].name : 'UNDEFINED',
