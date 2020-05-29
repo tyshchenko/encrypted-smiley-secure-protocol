@@ -147,6 +147,8 @@ module.exports = class SSP extends events {
 		let LENGTH = args.length + 1;
 		let SEQ_SLAVE_ID = this.getSequence();
 		let DATA = [commandList[command].code].concat(args);
+		if(this.debug)
+			console.log('COM <-', chalk.cyan(DATA.toString('hex')), chalk.green(DATA))
 
 		//Encrypted packet
 		if(this.aesEncryption != null && (commandList[command].encrypted || this.encryptAllCommand)){
