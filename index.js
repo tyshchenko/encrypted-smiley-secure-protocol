@@ -34,6 +34,7 @@ module.exports = class SSP extends events {
 		this.aesEncryption = null;
 		this.enabled = false;
 		this.polling = false;
+    this.protocol_version = 6;
 	}
 
 	open(port, param = {}) {
