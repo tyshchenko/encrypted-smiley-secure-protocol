@@ -149,6 +149,8 @@ module.exports = class SSP extends events {
 		let DATA = [commandList[command].code].concat(args);
 		if(this.debug)
 			console.log('COM <-', chalk.cyan(DATA.toString('hex')), chalk.green(DATA))
+    if(this.debug)
+      console.log('COM <- protocol_version ', chalk.cyan(this.protocol_version))
 
 		//Encrypted packet
 		if(this.aesEncryption != null && (commandList[command].encrypted || this.encryptAllCommand)){
@@ -312,11 +314,10 @@ module.exports = class SSP extends events {
 	}
 
 	command(command, args){
+    if(this.debug)
+      console.log('COM <- protocol_version ', chalk.cyan(this.protocol_version))
 		if(this.enabled){
 			let result = null;
-      if(this.debug)
-        console.log('COM <- protocol_version ', chalk.cyan(this.protocol_version))
-
 			return this.poll(false)
 			.then(() => this.exec(command, argsToByte(command, args, this.protocol_version)))
 			.then(res => {
