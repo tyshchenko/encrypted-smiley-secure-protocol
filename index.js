@@ -314,6 +314,8 @@ module.exports = class SSP extends events {
 	command(command, args){
 		if(this.enabled){
 			let result = null;
+      if(this.debug)
+        console.log('COM <- protocol_version ', chalk.cyan(this.protocol_version))
 
 			return this.poll(false)
 			.then(() => this.exec(command, argsToByte(command, args, this.protocol_version)))
