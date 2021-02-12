@@ -242,7 +242,8 @@ function parseData(data, currentCommand, protocol_version) {
 		success: data[0] == 0xF0,
 		status: status_desc[data[0]] != undefined ? status_desc[data[0]].name : 'UNDEFINED',
 		command: currentCommand,
-		info: {}
+		info: {},
+		nextcommands:[]
 	}
 
 	if(result.success) {
@@ -450,6 +451,7 @@ function parseData(data, currentCommand, protocol_version) {
 				result.info.code = data[0];
 				result.info.name = status_desc[data[0]].name;
 				result.info.description = status_desc[data[0]].description;
+        var datalengt = 1;
 
 
 				if(result.info.name == 'READ_NOTE' || 
@@ -458,6 +460,7 @@ function parseData(data, currentCommand, protocol_version) {
 					result.info.name == 'NOTE_CLEARED_TO_CASHBOX'
 					){
 						result.info.channel = data[1];
+            datalengt = 2;
 				}
 
 
@@ -476,6 +479,7 @@ function parseData(data, currentCommand, protocol_version) {
 							}
 						}
 					}
+					datalengt = 10000;
 				}
 
 
@@ -513,6 +517,7 @@ function parseData(data, currentCommand, protocol_version) {
 					} else {
 						result.info.value = Buffer.from(data.slice(0, 4)).readInt32LE();
 					}
+					datalengt = 10000;
 				}
 
 
@@ -531,6 +536,7 @@ function parseData(data, currentCommand, protocol_version) {
 							}
 						}
 					}
+					datalengt = 10000;
 				}
 
 
@@ -549,6 +555,7 @@ function parseData(data, currentCommand, protocol_version) {
 							}
 						}
 					}
+					datalengt = 10000;
 				}
 
 
@@ -562,8 +569,13 @@ function parseData(data, currentCommand, protocol_version) {
 							country_code: Buffer.from(data.slice((i*9)+8, (i*9)+11)).toString()
 						}
 					}
+					datalengt = 10000;
 				} 
-
+        if (data.length > datalengt) {
+          data = data.slice(datalengt);
+          result.nextcommands.push(parseData(data, currentCommand, protocol_version));
+          
+        }
 			}
 		}
 	} else {

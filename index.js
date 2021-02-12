@@ -256,7 +256,6 @@ module.exports = class SSP extends events {
 				}
 
 				let parsedData = parseData(DATA, this.currentCommand, this.protocol_version);
-
 				if(this.debug){
 					console.log(parsedData)
 				}
@@ -338,8 +337,18 @@ module.exports = class SSP extends events {
 			return this.exec('POLL')
 			.then(result => {
 				if(result.info && result.info.code){
-					this.emit(result.info.name, result.info)
-					
+					this.emit(result.info.name, result.info);
+          const self = this;
+          
+					result.nextcommands.forEach(function(nextcommand) {
+            self.emit(nextcommand.info.name, nextcommand.info);
+            
+            nextcommand.nextcommands.forEach(function(nnextcommand) {
+              self.emit(nnextcommand.info.name, nnextcommand.info)
+            }
+            
+          }
+
 					if(result.info.name == 'DISABLED'){
 						this.poll(false)
 					}
