@@ -345,9 +345,9 @@ module.exports = class SSP extends events {
             
             nextcommand.nextcommands.forEach(function(nnextcommand) {
               self.emit(nnextcommand.info.name, nnextcommand.info)
-            }
+            });
             
-          }
+          });
 
 					if(result.info.name == 'DISABLED'){
 						this.poll(false)
