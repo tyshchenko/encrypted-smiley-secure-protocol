@@ -573,7 +573,10 @@ function parseData(data, currentCommand, protocol_version) {
 				} 
         if (data.length > datalengt) {
           data = data.slice(datalengt);
-          result.nextcommands.push(parseData(data, currentCommand, protocol_version));
+          var ctemp = new (data.constructor)(data.length + 1);
+          ctemp[0] = 0xF0;
+          ctemp.set(data, 1);
+          result.nextcommands.push(parseData(ctemp, currentCommand, protocol_version));
           
         }
 			}
